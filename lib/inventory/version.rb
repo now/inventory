@@ -7,6 +7,7 @@ class Inventory
     def additional_libs
       super + %w'
         inventory/rake/tasks.rb
+        inventory/rake/tasks/check.rb
         inventory/rake/tasks/clean.rb
         inventory/rake/tasks/gem.rb
         inventory/rake/tasks/inventory.rb

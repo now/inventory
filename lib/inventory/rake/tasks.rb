@@ -5,7 +5,7 @@ require 'rake'
 class Inventory; module Rake end end
 
 module Inventory::Rake::Tasks
-  %w'clean gem inventory'.each do |file|
+  %w'check clean gem inventory'.each do |file|
     load File.expand_path('../tasks/%s.rb' % file, __FILE__)
   end
 
