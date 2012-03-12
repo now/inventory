@@ -12,27 +12,14 @@ module Inventory::Rake::Tasks
   @mostlycleanfiles, @cleanfiles, @distcleanfiles = [], [], []
 
   class << self
-    include Rake::DSL
-
     attr_accessor :inventory
 
     attr_reader :mostlycleanfiles, :cleanfiles, :distcleanfiles
 
     def define(inventory, options = {})
       self.inventory = inventory
-      desc 'Delete targets built by rake that are often rebuilt'
-      Clean.new :mostlyclean, mostlycleanfiles
-
-      desc 'Delete targets built by rake'
-      Clean.new :clean, cleanfiles
-      task :clean => :mostlyclean
-
-      desc 'Delete targets built by extconf.rb'
-      Clean.new :distclean, distcleanfiles
-      task :distclean => :clean
-
+      Clean.define
       Inventory.new(:inventory => inventory)
-
       Gem.new(:inventory => inventory, &(options.fetch(:gem, proc{ })))
     end
   end
