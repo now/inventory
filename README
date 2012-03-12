@@ -1,0 +1,6 @@
+                                   Inventory
+
+  Inventory allows you to create inventories of your Ruby projects.  These
+  inventories can then be used to load the project, create gem specifications
+  and gems, run unit tests, and verify that the project’s content is what you
+  think it is.
