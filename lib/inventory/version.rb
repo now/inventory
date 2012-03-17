@@ -3,7 +3,7 @@
 require 'inventory'
 
 class Inventory
-  Version = Inventory.new(0, 2, 0){
+  Version = Inventory.new(0, 2, 1){
     def additional_libs
       super + %w'
         inventory/rake/tasks.rb
