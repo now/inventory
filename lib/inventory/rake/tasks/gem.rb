@@ -70,7 +70,8 @@ class Inventory::Rake::Tasks::Gem
       Gem::Installer.new(@specification.file_name, :unpack => true).
         unpack File.expand_path(checkdir)
       chdir checkdir do
-        sh 'rake %sinventory:check check' % [Rake.application.options.silent ? '-s ' : '']
+        sh '%s %sinventory:check check' %
+          [Rake.application.name, Rake.application.options.silent ? '-s ' : '']
       end
       rm_r checkdir
     end
