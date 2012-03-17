@@ -145,7 +145,7 @@ class Inventory::Rake::Tasks::Gem
     task :push => :'gem:push'
 
     desc 'Push %s to rubygems.org' % @specification.file_name
-    task :'gem:push' => :'gem:check' do
+    task :'gem:push' => :'gem:dist:check' do
       sh 'gem push -%s-verbose %s' % [verbose ? '' : '-no', @specification.file_name]
     end
   end
