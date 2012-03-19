@@ -10,7 +10,7 @@ class Inventory
     @srcdir, _, @package_require = File.dirname(File.expand_path(path)).rpartition('/lib/')
     raise ArgumentError,
       'path is not of the form PATH/lib/PACKAGE/version.rb: %s' % path if
-        @path.empty?
+        @srcdir.empty?
     instance_exec(&block) if block
   end
 
