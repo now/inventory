@@ -7,7 +7,8 @@ class Inventory
     @major, @minor, @patch = major, minor, patch
     raise ArgumentError, 'default value of path argument could not be calculated' unless path
     @path = path
-    @srcdir, _, @package_require = File.dirname(File.expand_path(path)).rpartition('/lib/')
+    @srcdir, _, @package_path = File.dirname(File.expand_path(path)).rpartition('/lib/')
+    @package_require = '%s-%d.0' % [package, major]
     raise ArgumentError,
       'path is not of the form PATH/lib/PACKAGE/version.rb: %s' % path if
         @srcdir.empty?
@@ -15,11 +16,11 @@ class Inventory
   end
 
   def package
-    package_require.gsub('/', '-')
+    package_path.gsub('/', '-')
   end
 
   def version_require
-    File.join(package_require, 'version')
+    File.join(package_path, 'version')
   end
 
   def lib_directories
@@ -103,7 +104,7 @@ class Inventory
     '#<%s: %s %s>' % [self.class, package, self]
   end
 
-  attr_reader :major, :minor, :patch, :path, :srcdir, :package_require
+  attr_reader :major, :minor, :patch, :path, :srcdir, :package_path, :package_require
 
   load File.expand_path('../inventory/version.rb', __FILE__)
 end
