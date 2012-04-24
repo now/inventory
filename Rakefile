@@ -10,5 +10,8 @@ Inventory::Rake::Tasks.define Inventory::Version, :gem => proc{ |_, s|
   s.author = 'Nikolai Weibull'
   s.email = 'now@bitwi.se'
   s.homepage = 'https://github.com/now/inventory'
+
+  s.add_development_dependency 'lookout', '~> 3.0'
+  s.add_development_dependency 'yard', '~> 0.7.0'
 }
 Lookout::Rake::Tasks::Test.new
