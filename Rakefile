@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-$:.unshift File.expand_path('../lib', __FILE__)
 require 'lookout/rake/tasks'
+
+$:.unshift File.expand_path('../lib', __FILE__)
 require 'inventory/rake/tasks'
-require 'inventory/version'
+require 'inventory'
 
 Inventory::Rake::Tasks.define Inventory::Version, :gem => proc{ |_, s|
   s.author = 'Nikolai Weibull'

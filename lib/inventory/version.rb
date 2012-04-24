@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'inventory'
-
 class Inventory
   Version = Inventory.new(0, 2, 3){
     def additional_libs

@@ -104,4 +104,7 @@ class Inventory
   end
 
   attr_reader :major, :minor, :patch, :path, :srcdir, :package_require
+
+  load File.expand_path('../inventory/version.rb', __FILE__)
 end
+
