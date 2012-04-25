@@ -15,7 +15,7 @@ module Inventory::Dependency
   end
 
   def require
-    nil
+    super feature
   end
 
   def add_to_gem_specification(specification)

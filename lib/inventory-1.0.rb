@@ -40,7 +40,7 @@ class Inventory
 
   def dependencies
     Dependencies.new{
-      development 'inventory', Version.major, Version.minor, Version.patch
+      runtime 'inventory', Version.major, Version.minor, Version.patch
     }
   end
 
