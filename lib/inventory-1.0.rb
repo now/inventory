@@ -12,7 +12,7 @@ class Inventory
     raise ArgumentError,
       'path is not of the form PATH/lib/PACKAGE/version.rb: %s' % path if
         @srcdir.empty?
-    instance_exec(&block) if block
+    instance_exec(&Proc.new) if block_given?
   end
 
   def package
@@ -31,10 +31,17 @@ class Inventory
     requires.each do |requirement|
       require requirement
     end
+    dependencies.require
     loads.each do |load|
       Kernel.load File.expand_path('lib/%s' % load, srcdir)
     end
     self
+  end
+
+  def dependencies
+    Dependencies.new{
+      development 'inventory', Version.major, Version.minor, Version.patch
+    }
   end
 
   def requires
@@ -106,6 +113,15 @@ class Inventory
 
   attr_reader :major, :minor, :patch, :path, :srcdir, :package_path, :package_require
 
+#  %w'
+#    inventory/dependencies.rb
+#    inventory/dependency.rb
+#  '.each do |load|
+##    Kernel.load File.expand_path('../%s' % load, __FILE__)
+#  end
   load File.expand_path('../inventory/version.rb', __FILE__)
+  Version.loads.each do |load|
+    Kernel.load File.expand_path('../%s' % load, __FILE__)
+  end
 end
 

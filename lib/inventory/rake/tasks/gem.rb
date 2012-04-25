@@ -18,6 +18,8 @@ class Inventory::Rake::Tasks::Gem
                                          s.files = @inventory.files # TODO: We can skip #files and rely on #to_a
 
                                          s.require_paths = @inventory.lib_directories
+
+                                         @inventory.dependencies.add_to_gem_specification s
                                        })
     yield self, @specification if block_given?
     define
@@ -36,7 +38,7 @@ class Inventory::Rake::Tasks::Gem
     file gemspec => %w'Rakefile README' + [@inventory.path] do |t|
       tmp = '%s.tmp' % t.name
       rm([t.name, tmp], :force => true)
-      puts 'gem specification --ruby %s > %s' %
+      rake_output_message 'gem specification --ruby %s > %s' %
         [@specification.name, tmp] if verbose
       File.open(tmp, 'wb') do |f|
         f.write @specification.to_ruby
@@ -52,7 +54,7 @@ class Inventory::Rake::Tasks::Gem
     task :'gem:dist' => [:'inventory:check', @specification.file_name]
     file @specification.file_name => @specification.files do
       require 'rubygems' unless defined? Gem
-      puts 'gem build %s' % gemspec if verbose
+      rake_output_message 'gem build %s' % gemspec if verbose
       Gem::Builder.new(@specification).build
     end
 
@@ -65,7 +67,7 @@ class Inventory::Rake::Tasks::Gem
       require 'rubygems' unless defined? Gem
       require 'rubygems/installer' unless defined? Gem::Installer
       checkdir = @specification.full_name
-      puts 'gem unpack %s --target %s' %
+      rake_output_message 'gem unpack %s --target %s' %
         [@specification.file_name, checkdir] if verbose
       Gem::Installer.new(@specification.file_name, :unpack => true).
         unpack File.expand_path(checkdir)
@@ -76,32 +78,67 @@ class Inventory::Rake::Tasks::Gem
       rm_r checkdir
     end
 
+    desc 'Install dependencies on the local system' unless
+      Rake::Task.task_defined? :'deps:install'
+    task :'deps:install' => :':gem:deps:install'
+
+    desc 'Install dependencies in ruby gem directory'
+    task :'gem:deps:install' do
+      require 'rubygems' unless defined? Gem
+      require 'rubygems/dependency_installer' unless defined? Gem::DependencyInstaller
+      @specification.dependencies.each do |dependency|
+        rake_output_message "gem install %s -v '%s'" % [dependency.name, dependency.requirement] if verbose
+        Gem::DependencyInstaller.new.install dependency.name, dependency.requirement
+      end
+    end
+
+    desc 'Install dependencies for the current user' unless
+      Rake::Task.task_defined? :'deps:install:user'
+    task :'deps:install:user' => :':gem:deps:install:user'
+
+    desc 'Install dependencies for the current user'
+    task :'gem:deps:install:user' do
+      require 'rubygems' unless defined? Gem
+      require 'rubygems/dependency_installer' unless defined? Gem::DependencyInstaller
+      @specification.dependencies.each do |dependency|
+        rake_output_message "gem install --user-install --bindir %s %s -v '%s'" %
+          [Gem.bindir(Gem.user_dir), dependency.name, dependency.requirement] if verbose
+        Gem::DependencyInstaller.
+          new(:user_install => true,
+              :bindir => Gem.bindir(Gem.user_dir)).
+          install dependency.name, dependency.requirement
+      end
+    end
+
     desc 'Install distribution files on the local system' unless
       Rake::Task.task_defined? :install
     task :install => :'gem:install'
 
-    desc 'Install %s and its dependencies in ruby gem directory' %
+    desc 'Install %s in ruby gem directory' %
       @specification.file_name
     task :'gem:install' => :'gem:dist' do |t|
       require 'rubygems' unless defined? Gem
       require 'rubygems/dependency_installer' unless defined? Gem::DependencyInstaller
-      puts 'gem install %s' % @specification.file_name if verbose
-      Gem::DependencyInstaller.new.install @specification.file_name
+      rake_output_message 'gem install %s' % @specification.file_name if verbose
+      Gem::DependencyInstaller.
+        new(:ignore_dependencies => true).
+        install @specification.file_name
     end
 
     desc 'Install distribution files for the current user' unless
       Rake::Task.task_defined? :'install:user'
     task :'install:user' => :'gem:install:user'
 
-    desc 'Install %s and its dependencies in user gem directory' %
+    desc 'Install %s in user gem directory' %
       @specification.file_name
     task :'gem:install:user' => :'gem:dist' do
       require 'rubygems' unless defined? Gem
       require 'rubygems/dependency_installer' unless defined? Gem::DependencyInstaller
-      puts 'gem install --user-install --bindir %s %s' %
+      rake_output_message 'gem install --user-install --bindir %s %s' %
         [Gem.bindir(Gem.user_dir), @specification.file_name] if verbose
       Gem::DependencyInstaller.
-        new(:user_install => true,
+        new(:ignore_dependencies => true,
+            :user_install => true,
             :bindir => Gem.bindir(Gem.user_dir)).
         install @specification.file_name
     end
@@ -116,7 +153,7 @@ class Inventory::Rake::Tasks::Gem
       # TODO: I have absolutely no idea why this is needed, but it is.
       require 'rubygems/user_interaction' unless defined? Gem::UserInteraction
       require 'rubygems/uninstaller' unless defined? Gem::Uninstaller
-      puts 'gem uninstall --executables %s' % @specification.name if verbose
+      rake_output_message 'gem uninstall --executables %s' % @specification.name if verbose
       Gem::Uninstaller.new(@specification.name,
                            :executables => true,
                            :version => @specification.version).uninstall
@@ -132,7 +169,7 @@ class Inventory::Rake::Tasks::Gem
       # TODO: I have absolutely no idea why this is needed, but it is.
       require 'rubygems/user_interaction' unless defined? Gem::UserInteraction
       require 'rubygems/uninstaller' unless defined? Gem::Uninstaller
-      puts 'gem uninstall --executables --install-dir %s %s' %
+      rake_output_message 'gem uninstall --executables --install-dir %s %s' %
         [Gem.user_dir, @specification.name] if verbose
       Gem::Uninstaller.new(@specification.name,
                            :executables => true,
