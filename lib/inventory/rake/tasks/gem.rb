@@ -80,7 +80,7 @@ class Inventory::Rake::Tasks::Gem
 
     desc 'Install dependencies on the local system' unless
       Rake::Task.task_defined? :'deps:install'
-    task :'deps:install' => :':gem:deps:install'
+    task :'deps:install' => :'gem:deps:install'
 
     desc 'Install dependencies in ruby gem directory'
     task :'gem:deps:install' do
@@ -94,7 +94,7 @@ class Inventory::Rake::Tasks::Gem
 
     desc 'Install dependencies for the current user' unless
       Rake::Task.task_defined? :'deps:install:user'
-    task :'deps:install:user' => :':gem:deps:install:user'
+    task :'deps:install:user' => :'gem:deps:install:user'
 
     desc 'Install dependencies for the current user'
     task :'gem:deps:install:user' do
