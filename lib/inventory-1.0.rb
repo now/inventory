@@ -113,12 +113,6 @@ class Inventory
 
   attr_reader :major, :minor, :patch, :path, :srcdir, :package_path, :package_require
 
-#  %w'
-#    inventory/dependencies.rb
-#    inventory/dependency.rb
-#  '.each do |load|
-##    Kernel.load File.expand_path('../%s' % load, __FILE__)
-#  end
   load File.expand_path('../inventory/version.rb', __FILE__)
   Version.loads.each do |load|
     Kernel.load File.expand_path('../%s' % load, __FILE__)
