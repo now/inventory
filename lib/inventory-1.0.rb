@@ -8,7 +8,7 @@ class Inventory
     raise ArgumentError, 'default value of path argument could not be calculated' unless path
     @path = path
     @srcdir, _, @package_path = File.dirname(File.expand_path(path)).rpartition('/lib/')
-    @package_require = '%s-%d.0' % [package, major]
+    @package_require = '%s-%d.0' % [package_path, major]
     raise ArgumentError,
       'path is not of the form PATH/lib/PACKAGE/version.rb: %s' % path if
         @srcdir.empty?
