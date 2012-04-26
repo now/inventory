@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Inventory
-  Version = Inventory.new(1, 1, 3){
+  Version = Inventory.new(1, 2, 0){
     def dependencies
       Dependencies.new{
         development 'lookout', 3, 0, 0
@@ -16,16 +16,6 @@ class Inventory
         inventory/dependencies/development.rb
         inventory/dependencies/optional.rb
         inventory/dependencies/runtime.rb
-      '
-    end
-
-    def additional_libs
-      super + %w'
-        inventory/rake/tasks-1.0.rb
-        inventory/rake/tasks/check.rb
-        inventory/rake/tasks/clean.rb
-        inventory/rake/tasks/gem.rb
-        inventory/rake/tasks/inventory.rb
       '
     end
   }
