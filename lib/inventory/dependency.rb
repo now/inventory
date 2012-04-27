@@ -11,7 +11,7 @@ module Inventory::Dependency
   end
 
   def feature
-    '%s-%d.0' % [name, major]
+    '%s-%d.0' % [name.gsub('-', '/'), major]
   end
 
   def require
