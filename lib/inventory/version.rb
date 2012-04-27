@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 class Inventory
-  Version = Inventory.new(1, 2, 2){
+  Version = Inventory.new(1, 2, 3){
     def dependencies
       Dependencies.new{
+        development 'inventory-rake', 1, 3, 0
         development 'lookout', 3, 0, 0
         development 'lookout-rake', 3, 0, 0
         development 'yard', 0, 7, 0
