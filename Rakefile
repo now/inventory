@@ -11,7 +11,7 @@ Inventory::Rake::Tasks.define Inventory::Version, :gem => proc{ |_, s|
   s.homepage = 'https://github.com/now/inventory'
 }
 
-if (%w'gem:deps:install gem:deps:install:user' & Rake.application.top_level_tasks).empty?
+Inventory::Rake::Tasks.unless_installing_dependencies do
   require 'lookout/rake-3.0'
   Lookout::Rake::Tasks::Test.new
 end
