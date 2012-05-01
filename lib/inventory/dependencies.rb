@@ -37,18 +37,18 @@ class Inventory::Dependencies
 
   private
 
-  def development(name, major, minor, patch)
-    dependencies << Development.new(name, major, minor, patch)
+  def development(name, major, minor, patch, options = {})
+    dependencies << Development.new(name, major, minor, patch, options)
     self
   end
 
-  def runtime(name, major, minor, patch)
-    dependencies << Runtime.new(name, major, minor, patch)
+  def runtime(name, major, minor, patch, options = {})
+    dependencies << Runtime.new(name, major, minor, patch, options)
     self
   end
 
-  def optional(name, major, minor, patch)
-    dependencies << Optional.new(name, major, minor, patch)
+  def optional(name, major, minor, patch, options = {})
+    dependencies << Optional.new(name, major, minor, patch, options)
     self
   end
 end

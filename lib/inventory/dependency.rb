@@ -3,15 +3,12 @@
 module Inventory::Dependency
   def initialize(name, major, minor, patch, options = {})
     @name, @major, @minor, @patch = name, major, minor, patch
+    @feature = options.fetch(:feature, '%s-%d.0' % [name.gsub('-', '/'), major])
     instance_exec(&Proc.new) if block_given?
   end
 
   def to_s
-    '%d.%d.%d' % [major, minor, patch]
-  end
-
-  def feature
-    '%s-%d.0' % [name.gsub('-', '/'), major]
+    [major, minor, patch].join('.')
   end
 
   def require
@@ -23,7 +20,7 @@ module Inventory::Dependency
     self
   end
 
-  attr_reader :name, :major, :minor, :patch
+  attr_reader :name, :major, :minor, :patch, :feature
 
   private
 
