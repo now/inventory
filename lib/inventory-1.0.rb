@@ -2,8 +2,7 @@
 
 class Inventory
   def initialize(major, minor, patch,
-                 path = (m = /\A(.*):\d+(?::in .*)?\z/.match(caller.first) and m[1]),
-                 &block)
+                 path = (m = /\A(.*):\d+(?::in .*)?\z/.match(caller.first) and m[1]))
     @major, @minor, @patch = major, minor, patch
     raise ArgumentError, 'default value of path argument could not be calculated' unless path
     @path = path
