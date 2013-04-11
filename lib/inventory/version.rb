@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Inventory
-  Version = Inventory.new(1, 3, 0){
+  Version = Inventory.new(1, 4, 0){
     def dependencies
       Dependencies.new{
         development 'inventory-rake', 1, 3, 0
@@ -18,6 +18,7 @@ class Inventory
         inventory/dependencies/development.rb
         inventory/dependencies/optional.rb
         inventory/dependencies/runtime.rb
+        inventory/extension.rb
       '
     end
   }

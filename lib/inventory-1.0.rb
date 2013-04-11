@@ -51,6 +51,10 @@ class Inventory
     libs
   end
 
+  def extensions
+    []
+  end
+
   def libs
     []
   end
@@ -95,7 +99,7 @@ class Inventory
   end
 
   def files
-    lib_files + test_files + additional_files
+    lib_files + test_files + additional_files + extensions.map(&:files).flatten
   end
 
   def to_a
