@@ -11,15 +11,13 @@ class Inventory
       }
     end
 
-    def libs
-      %w'
-        inventory/dependency.rb
-        inventory/dependencies.rb
-        inventory/dependencies/development.rb
-        inventory/dependencies/optional.rb
-        inventory/dependencies/runtime.rb
-        inventory/extension.rb
-      '
+    def package_libs
+      %w[dependency.rb
+         dependencies.rb
+         dependencies/development.rb
+         dependencies/optional.rb
+         dependencies/runtime.rb
+         extension.rb]
     end
   }
 end
