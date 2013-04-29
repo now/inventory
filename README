@@ -1,9 +1,11 @@
                                    Inventory
 
-  Inventory keeps track of the contents of your Ruby projects.  Such an
+  Inventory keeps track of the contents of your Ruby¹ projects.  Such an
   inventory can be used to load the project, create gem specifications and
   gems, run unit tests, compile extensions, and verify that the project’s
   content is what you think it is.
+
+¹ See http://ruby-lang.org/
 
 § Usage
 
