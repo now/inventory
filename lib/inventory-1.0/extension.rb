@@ -58,7 +58,7 @@ class Inventory::Extension
   end
 
   # @return [Array<String>] All files included in the package, that is
-  #   [{#extconf}, {#depend} + {#source_files} + {#additional_files}
+  #   [{#extconf}, {#depend}] + {#source_files} + {#additional_files}
   def files
     [extconf, depend] + source_files + additional_files
   end
