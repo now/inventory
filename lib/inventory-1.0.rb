@@ -240,7 +240,7 @@ class Inventory
   # @return [String] The feature to require for the package
   attr_reader :package_require
 
-  load File.expand_path('../inventory/version.rb', __FILE__)
+  load File.expand_path('../inventory-1.0/version.rb', __FILE__)
   Version.loads.each do |load|
     Kernel.load File.expand_path('../%s' % load, __FILE__)
   end
