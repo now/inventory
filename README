@@ -44,6 +44,18 @@
 
       class Foo
         Version = Foo.new(1, 4, 0){
+          authors{
+            author 'A. U. Thor', 'a.u.thor@example.org'
+          }
+
+          homepage 'http://example.org/'
+
+          licenses{
+            license 'LGPLv3+',
+                    'GNU Lesser General Public License, version 3 or later',
+                    'http://www.gnu.org/licenses/'
+          }
+
           def dependencies
             super + Dependencies.new{
               development 'baz', 1, 3, 0
@@ -68,6 +80,11 @@
     of the API that we’re shipping using {semantic versioning}².  They also
     allow the Inventory#to_s method to act as if you’d defined Version as
     ‹'1.4.0'›.
+
+    Next follows information about the authors of the project, the project’s
+    homepage, and the project’s licenses.  Each author has a name and an email
+    address.  The homepage is simply a string URL.  Licenses have an
+    abbreviation, a name, and a URL where the license text can be found.
 
     We then extend the definition of ‹dependencies› by adding another set of
     dependencies to ‹super›.  ‹Super› includes a dependency on the version of
@@ -131,11 +148,7 @@
 
       load File.expand_path('../lib/foo-1.0/version.rb', __FILE__)
 
-      Inventory::Rake::Tasks.define Foo::Version, :gem => proc{ |_, s|
-        s.author = 'Your Name'
-        s.email = 'you@example.com'
-        s.homepage = 'https://example.com/'
-      }
+      Inventory::Rake::Tasks.define Foo::Version
 
       Inventory::Rake::Tasks.unless_installing_dependencies do
         require 'lookout-rake-3.0'
@@ -143,8 +156,7 @@
       end
 
     It’s ‹Inventory::Rake::Tasks.define› that does the heavy lifting.  It takes
-    our inventory and sets up the tasks mentioned above.  We also do some
-    additional customization of the gem specification.
+    our inventory and sets up the tasks mentioned above.
 
     As we want to be able to use our Rakefile to install our dependencies for
     us, the rest of the Rakefile is inside the conditional

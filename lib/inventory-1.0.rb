@@ -34,6 +34,18 @@
 #
 #       class Foo
 #         Version = Inventory.new(1, 2, 0){
+#           authors{
+#             author 'A. U. Thor', 'a.u.thor@example.org'
+#           }
+#
+#           homepage 'http://example.org/'
+#
+#           licenses{
+#             license 'LGPLv3+',
+#                     'GNU Lesser General Public License, version 3 or later',
+#                     'http://www.gnu.org/licenses/'
+#           }
+#
 #           def dependencies
 #             super + Dependencies.new{
 #               development 'inventory-rake', 1, 3, 0
@@ -98,6 +110,45 @@ class Inventory
       Kernel.load File.expand_path('lib/%s' % load, srcdir)
     end
     self
+  end
+
+  # Sets, when given a block, the authors of the project, otherwise returns
+  # them.  The block will be #instance_exec’d inside a new {Authors} object,
+  # allowing you to {Authors#author add} one or more authors.
+  #
+  # @yield [?]
+  # @return [Authors]
+  # @raise [RuntimeError] If no block has been given and no authors have previously been set
+  def authors
+    @authors = Authors.new(&Proc.new) if block_given?
+    raise 'no authors defined in inventory of %s' % self if not defined? @authors or @authors.count == 0
+    @authors
+  end
+
+  # Sets the project homepage to VALUE, or returns it, if VALUE is nil.
+  #
+  # @param [String] value
+  # @return [String]
+  # @raise [RuntimeError] If VALUE is nil and no homepage has previously been
+  #   set
+  def homepage(value = nil)
+    return @homepage = value if value
+    raise 'no homepage set in inventory of %s' % self if not defined? @homepage
+    @homepage
+  end
+
+  # Sets, when given a block, the licenses of the project, otherwise returns
+  # them.  The block will be #instance_exec’d inside a new {Licenses} object,
+  # allowing you to {Licenses#license add} one or more licenses.
+  #
+  # @yield [?]
+  # @return [Licenses]
+  # @raise [RuntimeError] If no block has been given and no licenses have
+  #   previously been set
+  def licenses
+    @licenses = Licenses.new(&Proc.new) if block_given?
+    raise 'no licenses defined in inventory of %s' % self if not defined? @licenses or @licenses.count == 0
+    @licenses
   end
 
   # @return [Dependencies] The dependencies of the package

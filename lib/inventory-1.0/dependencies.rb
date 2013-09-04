@@ -18,7 +18,7 @@ class Inventory::Dependencies
   # optionally #instance_exec’d block by calling {#development}, {#runtime},
   # and {#optional} inside it.
   #
-  # @param [Array<Dependency>] dependencies
+  # @param [Dependency, …] dependencies
   # @yield [?]
   def initialize(*dependencies)
     @dependencies = dependencies
@@ -32,6 +32,7 @@ class Inventory::Dependencies
   #
   # @param (see Inventory::Dependency#initialize)
   # @option (see Inventory::Dependency#initialize)
+  # @return [self]
   def development(name, major, minor, patch, options = {})
     dependencies << Development.new(name, major, minor, patch, options)
     self
@@ -42,6 +43,7 @@ class Inventory::Dependencies
   #
   # @param (see Inventory::Dependency#initialize)
   # @option (see Inventory::Dependency#initialize)
+  # @return [self]
   def runtime(name, major, minor, patch, options = {})
     dependencies << Runtime.new(name, major, minor, patch, options)
     self
@@ -52,6 +54,7 @@ class Inventory::Dependencies
   #
   # @param (see Inventory::Dependency#initialize)
   # @option (see Inventory::Dependency#initialize)
+  # @return [self]
   def optional(name, major, minor, patch, options = {})
     dependencies << Optional.new(name, major, minor, patch, options)
     self
