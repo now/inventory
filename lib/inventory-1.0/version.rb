@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Inventory
-  Version = Inventory.new(1, 5, 0){
+  Version = Inventory.new(1, 5, 1){
     def authors
       Authors.new{
         author 'Nikolai Weibull', 'now@disu.se'
@@ -25,7 +25,7 @@ class Inventory
         development 'inventory-rake', 1, 6, 0
         development 'inventory-rake-tasks-yard', 1, 4, 0
         development 'lookout', 3, 0, 0
-        development 'lookout-rake', 3, 0, 0
+        development 'lookout-rake', 3, 1, 0
         development 'yard', 0, 8, 7
         development 'yard-heuristics', 1, 2, 0
       }
