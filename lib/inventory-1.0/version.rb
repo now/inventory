@@ -9,7 +9,7 @@ class Inventory
     end
 
     def homepage
-      'http://disu.se/software/inventory'
+      'http://disu.se/software/inventory/'
     end
 
     def licenses
