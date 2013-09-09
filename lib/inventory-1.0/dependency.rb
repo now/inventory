@@ -31,12 +31,14 @@ module Inventory::Dependency
   def require
     super feature
   rescue LoadError => e
-    if not e.respond_to? :path or e.path.end_with? feature
+    if @altfeature and (not e.respond_to? :path or e.path.end_with? feature)
       begin
         super @altfeature
       rescue LoadError
         raise e
       end
+    else
+      raise e
     end
   end
 
