@@ -10,8 +10,8 @@ class Inventory::Author
     @name, @email = name, email
   end
 
-  # @return [String] The {#name} and {#email} of the author on the “name
-  #   <email>” format
+  # @return [String] The {#name} and {#email} of the author on the
+  #   “`name <email>`” format
   def to_s
     '%s <%s>' % [name, email]
   end
