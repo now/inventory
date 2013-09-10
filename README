@@ -187,9 +187,9 @@
 
 ¹ Ruby project structure: http://guides.rubygems.org/make-your-own-gem/
 ² Semantic versioning: http://semver.org/
-³ Inventory-Rake: http://disu.se/software/inventory-rake/
+³ Inventory-Rake: http://disu.se/software/inventory-rake-1.0/
 ⁴ Travis: http://travis-ci.org/
-⁵ Lookout-Rake: http://disu.se/software/lookout-rake/
+⁵ Lookout-Rake: http://disu.se/software/lookout-rake-1.0/
 
 § API
 
