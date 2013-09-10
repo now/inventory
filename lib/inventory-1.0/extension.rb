@@ -7,7 +7,7 @@
 #
 # For an inventory, an extension is a set of files that should be included in
 # the project and can contain multiple extensions.
-# [Inventory-Rake](http://disu.se/software/inventory-rake/) uses information
+# [Inventory-Rake](http://disu.se/software/inventory-rake-1.0/) uses information
 # found in these extensions to compile them for use from Ruby code.
 class Inventory::Extension
   # Creates an extension named NAME.  A block may be given that’ll be

@@ -3,8 +3,8 @@
 # An Inventory keeps track of your Ruby project’s {Inventory#to_s version} and
 # its {Inventory#to_a content}.  It also allows you to {#load} your project’s
 # source files in a simple manner and track its {#dependencies}.  Add-ons, such
-# as [Inventory-Rake](http://disu.se/software/inventory-rake/) and
-# [Inventory-Rake-Tasks-YARD](http://disu.se/software/inventory-rake-tasks-yard),
+# as [Inventory-Rake](http://disu.se/software/inventory-rake-1.0/) and
+# [Inventory-Rake-Tasks-YARD](http://disu.se/software/inventory-rake-tasks-yard-1.0/),
 # can also use this information to great effect.
 #
 # The basic usage pattern is to set your project’s Version constant to an
