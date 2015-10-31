@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Inventory
-  Version = Inventory.new(1, 5, 2){
+  Version = Inventory.new(1, 5, 3){
     def authors
       Authors.new{
         author 'Nikolai Weibull', 'now@disu.se'

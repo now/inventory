@@ -121,7 +121,8 @@ class Inventory
   # @raise [RuntimeError] If no block has been given and no authors have previously been set
   def authors
     @authors = Authors.new(&Proc.new) if block_given?
-    raise 'no authors defined in inventory of %s' % self if not defined? @authors or @authors.count == 0
+    raise 'no authors defined in inventory of %s %s' % [package, self] if
+      not defined? @authors or @authors.count == 0
     @authors
   end
 
@@ -133,7 +134,8 @@ class Inventory
   #   set
   def homepage(value = nil)
     return @homepage = value if value
-    raise 'no homepage set in inventory of %s' % self if not defined? @homepage
+    raise 'no homepage set in inventory of %s %s' % [package, self] if
+      not defined? @homepage
     @homepage
   end
 
@@ -147,7 +149,8 @@ class Inventory
   #   previously been set
   def licenses
     @licenses = Licenses.new(&Proc.new) if block_given?
-    raise 'no licenses defined in inventory of %s' % self if not defined? @licenses or @licenses.count == 0
+    raise 'no licenses defined in inventory of %s %s' % [package, self] if
+      not defined? @licenses or @licenses.count == 0
     @licenses
   end
 
